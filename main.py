@@ -56,7 +56,8 @@ posts: list[dict] = [
 def home(request: Request):
     # return {'message': 'Hello World!'}
     # return f"<h1>{posts[-1]['title']}</h1>"
-    return templates.TemplateResponse(request, "home.html")
+    # return templates.TemplateResponse(request, "home.html")
+    return templates.TemplateResponse(request, "home.html", {"posts": posts})
 
 
 @app.get("/api/posts")
