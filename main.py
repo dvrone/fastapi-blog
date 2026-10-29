@@ -2,9 +2,12 @@ from datetime import datetime, timedelta
 
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
 app = FastAPI()
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 templates = Jinja2Templates(directory="templates")
 
@@ -51,8 +54,10 @@ posts: list[dict] = [
 # @app.get('/posts', response_class=HTMLResponse)
 # @app.get("/", response_class=HTMLResponse, include_in_schema=False)
 # @app.get("/posts", response_class=HTMLResponse, include_in_schema=False)
-@app.get("/", include_in_schema=False)
-@app.get("/posts", include_in_schema=False)
+# @app.get("/", include_in_schema=False)
+# @app.get("/posts", include_in_schema=False)
+@app.get("/", include_in_schema=False, name="home")
+@app.get("/posts", include_in_schema=False, name="posts")
 def home(request: Request):
     # return {'message': 'Hello World!'}
     # return f"<h1>{posts[-1]['title']}</h1>"
